@@ -1,0 +1,24 @@
+{
+  "name": "distributed-node",
+  "version": "1.0.0",
+  "description": "working through the course work associated with https://github.com/udemonia/distributed-node",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/udemonia/distributed-node.git"
+  },
+  "keywords": [
+    "distributed-systems",
+    "node",
+    "javascript"
+  ],
+  "author": "brandon lambert",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/udemonia/distributed-node/issues"
+  },
+  "homepage": "https://github.com/udemonia/distributed-node#readme"
+}
