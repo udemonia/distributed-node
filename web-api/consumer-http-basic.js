@@ -1,40 +1,20 @@
-#!/usr/bin/env node
+#!/usr/bin/env node // 
 
-const server = require('fastify');
-const HOST = process.env.HOST || '127.0.0.1'
-const PORT = process.env.PORT || 4000;
+const server = require('fastify')(); 
+const fetch = require ('node-fetch'); 
+const HOST = process . env . HOST || '127.0.0.1'; 
+const PORT = process . env . PORT || 3000 ; 
+const TARGET = process . env . TARGET || 'localhost:4000'; 
 
+server.get('/', async () => { 
+    const req = await fetch (`http:// ${ TARGET } /recipes/42`); 
+    const producer_data = await req.json(); 
+    return { 
+        consumer_pid : process.pid, 
+        producer_data 
+    }; }); 
+    
+server.listen( PORT, HOST, () => { 
+    console.log(`Consumer running at http:// ${ HOST } : ${ PORT } /` ); 
+}); 
 
-//* each process gets a unique id
-console.log(`Worker Process PID = ${process.pid}`);
-
-server.get('/recipes/:id', async (req, reply) => {
-    console.log(`Worker Request PID = ${process.pid}`)
-    const id = Number(req.params.id)
-    if (id !== 42) {
-        reply.statusCode = 404;
-        return {
-            error: 'Resource Not Found'
-        }
-    }
-    return {
-        producer_pid: process.pid,
-        recipe: {
-            id: id,
-            name: 'chicken something or another',
-            steps: 'throw it ina pot!',
-            ingredients: [
-                {
-                    id: 1,
-                    name: 'chicken',
-                    quantity: '100 pounds'
-                },
-                {
-                    id: 2,
-                    name: 'Sauce',
-                    quantity: '20 table spoons'
-                }
-            ]
-        }
-    }
-})
