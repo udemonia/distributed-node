@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/udemonia/distributed-node/issues"
   },
-  "homepage": "https://github.com/udemonia/distributed-node#readme"
+  "homepage": "https://github.com/udemonia/distributed-node#readme",
+  "dependencies": {
+    "fastify": "3.2"
+  }
 }
