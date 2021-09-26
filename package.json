@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/udemonia/distributed-node#readme",
   "dependencies": {
+    "express": "^4.17.1",
     "fastify": "3.2",
     "node-fetch": "2.6"
   }
