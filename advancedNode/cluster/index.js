@@ -11,9 +11,14 @@ if (cluster.isMaster){
     //? if yes, execute again in child mode
     cluster.fork()
     cluster.fork()
-    // cluster.fork()
-    // cluster.fork()
-    // cluster.fork()
+    cluster.fork()
+    cluster.fork()
+    cluster.fork()
+    cluster.fork()
+    cluster.fork()
+    cluster.fork()
+    cluster.fork()
+    cluster.fork()
 } else {
     //? if not master, handle server functions per usual
     const port = 505;

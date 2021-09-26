@@ -68,3 +68,61 @@ Percentage of the requests served within a certain time (ms)
 ```
 
 The output is nice as it provides a histogram of the time to response percentile breakdown. _For instance, Amazon thinks about 99% response time for cart design - as customers with the largest carts are the most valuable to the company_ - see Designing Data Intensive Systems
+
+## Where is the downside with clustering?
+
+I've updated the amount of clusters to ten with cluster.fork() repeated ten times
+
+See the output with ten concurrent requests
+
+```bash
+✅ $ab -c 10 -n  100   http://localhost:505/
+This is ApacheBench, Version 2.3 <$Revision: 1879490 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking localhost (be patient).....done
+
+
+Server Software:
+Server Hostname:        localhost
+Server Port:            505
+
+Document Path:          /
+Document Length:        12 bytes
+
+Concurrency Level:      10
+Time taken for tests:   1.087 seconds
+Complete requests:      100
+Failed requests:        0
+Total transferred:      21100 bytes
+HTML transferred:       1200 bytes
+Requests per second:    92.03 [#/sec] (mean)
+Time per request:       108.657 [ms] (mean)
+Time per request:       10.866 [ms] (mean, across all concurrent requests)
+Transfer rate:          18.96 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.1      0       1
+Processing:    56  101  14.7     99     183
+Waiting:       55  101  14.7     99     183
+Total:         56  101  14.7    100     184
+
+Percentage of the requests served within a certain time (ms)
+  50%    100
+  66%    105
+  75%    107
+  80%    109
+  90%    114
+  95%    119
+  98%    157
+  99%    184
+ 100%    184 (longest request)
+```
+
+There is an **UPPER LIMIT** on how much work a computer can do. If we over allocate clusters - we're slowing down the entire system
+
+We should not increase the number of fork() instances past the number of cores we have on our computer - this seems to be the key
+
+Okay, actually, it looks like you match physical cores for CPU intensive and logical cores for standard work
